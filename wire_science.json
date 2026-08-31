@@ -1,0 +1,38 @@
+{
+ "generated": "1970-01-01T00:00:00Z",
+ "items": [],
+ "counts": {
+  "stories": 0,
+  "new_this_run": 0,
+  "languages": 0,
+  "notable": 0,
+  "refused": 0,
+  "by_standing": {},
+  "wires_ok": 0,
+  "wires_total": 0
+ },
+ "notable_score": 3,
+ "languages": [],
+ "standings": [
+  {
+   "id": "official",
+   "label": "Funders, institutions & integrity offices"
+  },
+  {
+   "id": "research",
+   "label": "Journals, publishers & metascience"
+  },
+  {
+   "id": "press",
+   "label": "Press"
+  },
+  {
+   "id": "rights",
+   "label": "Open science & accountability groups"
+  }
+ ],
+ "topics": [],
+ "coords": {},
+ "geo": [],
+ "sources": []
+}
