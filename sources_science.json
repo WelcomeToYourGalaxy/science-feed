@@ -1,1626 +1,2734 @@
 {
-  "_note": [
-    "Sources for the science wire.",
-    "",
-    "This is a feed on research integrity, not science news. A discovery is not",
-    "the subject; what is wrong with the published record is.",
-    "",
-    "Retraction Watch is in direct and was checked directly: the site is live,",
-    "  running WordPress and posting daily, so /feed/ is its standard endpoint.",
-    "",
-    "PubPeer is NOT in direct, and cannot be: it publishes no public RSS feed,",
-    "  only a keyed API you would have to request from them. It is covered by an",
-    "  events search instead, which catches PubPeer threads once someone reports",
-    "  on them — Retraction Watch does so constantly — but not the raw comments.",
-    "  If you want the comments themselves, email PubPeer for API access and add",
-    "  a small fetcher; the harvester's source format would need a new block for",
-    "  it, since everything here speaks RSS.",
-    "",
-    "direct: feeds proven working in the sibling Welcome to Your Galaxy repos.",
-    "  Nothing invented — an untested feed URL reports itself unreachable on every",
-    "  harvest and quietly makes the coverage figure a lie.",
-    "",
-    "  This is the weakest direct list of any feed built here, and honestly so:",
-    "  almost nothing in the sibling repos covers research integrity, so the",
-    "  carried-over feeds contribute little. The events block and the specialist",
-    "  additions below are what will actually make this wire work.",
-    "",
-    "gnews: Google News locale searches; the harvester builds the URL from",
-    "  hl / gl / ceid. Twenty-four queries rotate across 46 locales.",
-    "",
-    "events: subject searches for retraction tracking, paper mills, metascience,",
-    "  institutional investigations and publishing policy.",
-    "",
-    "standing is provenance, not importance:",
-    "  official  funders, institutions, integrity offices, courts",
-    "  research  journals, publishers, metascience",
-    "  press     general news across the locales",
-    "  rights    open science and accountability organisations",
-    "",
-    "Add these first, with URLs you have opened: Retraction Watch, PubPeer,",
-    "Nature news, Science news, Times Higher Education, Chemistry World, the",
-    "Committee on Publication Ethics, the Office of Research Integrity, MetaROR,",
-    "and the Center for Open Science."
-  ],
-  "direct": [
-    {
-      "name": "Retraction Watch",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://retractionwatch.com/feed/"
-    },
-    {
-      "name": "European Commission",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://ec.europa.eu/commission/presscorner/api/rss"
-    },
-    {
-      "name": "US Department of Justice",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.justice.gov/feeds/opa/justice-news.xml"
-    },
-    {
-      "name": "OECD",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.oecd.org/newsroom/index.xml"
-    },
-    {
-      "name": "World Health Organization",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.who.int/rss-feeds/news-english.xml"
-    },
-    {
-      "name": "UNCTAD",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://unctad.org/rss.xml"
-    },
-    {
-      "name": "World Bank",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.worldbank.org/en/news/all?format=rss"
-    },
-    {
-      "name": "UN News — Human Rights",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://news.un.org/feed/subscribe/en/news/topic/human-rights/feed/rss.xml"
-    },
-    {
-      "name": "Business & Human Rights Resource Centre",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.business-humanrights.org/en/rss/"
-    },
-    {
-      "name": "Bellingcat",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.bellingcat.com/feed/"
-    },
-    {
-      "name": "Transparency International",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.transparency.org/en/rss"
-    },
-    {
-      "name": "Corporate Europe Observatory",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://corporateeurope.org/en/rss.xml"
-    },
-    {
-      "name": "ODI",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://odi.org/en/feed/"
-    },
-    {
-      "name": "CEPR",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://cepr.org/rss.xml"
-    },
-    {
-      "name": "Peterson Institute",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.piie.com/rss.xml"
-    },
-    {
-      "name": "AidData",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.aiddata.org/rss"
-    },
-    {
-      "name": "Tax Justice Network",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://taxjustice.net/feed/"
-    },
-    {
-      "name": "Freedom House",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://freedomhouse.org/rss.xml"
-    },
-    {
-      "name": "Public Citizen · Global Trade Watch",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.citizen.org/feed/"
-    },
-    {
-      "name": "Privacy International",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://privacyinternational.org/rss.xml"
-    },
-    {
-      "name": "EDRi",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://edri.org/feed/"
-    },
-    {
-      "name": "Access Now",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.accessnow.org/feed/"
-    },
-    {
-      "name": "Electronic Frontier Foundation",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.eff.org/rss/updates.xml"
-    },
-    {
-      "name": "Article 19",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.article19.org/feed/"
-    },
-    {
-      "name": "Statewatch",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.statewatch.org/rss/"
-    },
-    {
-      "name": "Global Witness",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.globalwitness.org/en/rss/"
-    },
-    {
-      "name": "Human Rights Watch",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.hrw.org/rss/news"
-    },
-    {
-      "name": "Amnesty International",
-      "lang": "en",
-      "standing": "rights",
-      "url": "https://www.amnesty.org/en/rss/"
-    },
-    {
-      "name": "The Intercept",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://theintercept.com/feed/?rss"
-    },
-    {
-      "name": "The Marshall Project",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://www.themarshallproject.org/rss/recent.rss"
-    }
-  ],
-  "gnews": [
-    {
-      "label": "English (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "\"paper mill\" journal OR retraction OR submissions flagged"
-    },
-    {
-      "label": "English (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "\"research misconduct\" finding OR investigation OR fabricated data"
-    },
-    {
-      "label": "English (US) 3",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "retraction record OR mass retraction OR \"expression of concern\" journal"
-    },
-    {
-      "label": "English (UK) 4",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en-GB",
-      "query": "\"image manipulation\" paper OR duplicated figures OR western blot integrity"
-    },
-    {
-      "label": "English (UK) 5",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en-GB",
-      "query": "plagiarism retracted OR thesis plagiarism OR degree revoked"
-    },
-    {
-      "label": "English (UK) 6",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en-GB",
-      "query": "\"ghost authorship\" OR \"authorship for sale\" OR gift authorship"
-    },
-    {
-      "label": "English (India) 7",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "\"p-hacking\" OR \"outcome switching\" OR selective reporting trial"
-    },
-    {
-      "label": "English (India) 8",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "\"citation cartel\" OR citation manipulation OR impact factor gaming delisted"
-    },
-    {
-      "label": "English (India) 9",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "\"AI-generated\" paper undisclosed OR ChatGPT manuscript detected"
-    },
-    {
-      "label": "English (Nigeria) 10",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-NG",
-      "gl": "NG",
-      "ceid": "NG:en",
-      "query": "\"peer review\" fake OR rigged OR compromised special issue"
-    },
-    {
-      "label": "English (Nigeria) 11",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-NG",
-      "gl": "NG",
-      "ceid": "NG:en",
-      "query": "\"predatory journal\" OR hijacked journal OR clone journal"
-    },
-    {
-      "label": "English (Nigeria) 12",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-NG",
-      "gl": "NG",
-      "ceid": "NG:en",
-      "query": "\"replication crisis\" OR failed to replicate OR reproducibility project"
-    },
-    {
-      "label": "English (South Africa) 13",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-ZA",
-      "gl": "ZA",
-      "ceid": "ZA:en",
-      "query": "\"open access\" policy OR \"article processing charge\" rise OR transformative agreement"
-    },
-    {
-      "label": "English (South Africa) 14",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-ZA",
-      "gl": "ZA",
-      "ceid": "ZA:en",
-      "query": "\"data availability\" refused OR data sharing mandate research"
-    },
-    {
-      "label": "English (South Africa) 15",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-ZA",
-      "gl": "ZA",
-      "ceid": "ZA:en",
-      "query": "\"conflict of interest\" undisclosed author OR failed to disclose study"
-    },
-    {
-      "label": "English (Australia) 16",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "\"publish or perish\" OR research assessment reform OR DORA"
-    },
-    {
-      "label": "English (Australia) 17",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "PubPeer OR \"Retraction Watch\" OR data sleuth investigation"
-    },
-    {
-      "label": "English (Australia) 18",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "\"research integrity\" office OR national policy OR framework"
-    },
-    {
-      "label": "English (Kenya) 19",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-KE",
-      "gl": "KE",
-      "ceid": "KE:en",
-      "query": "\"industry funding\" study conflict OR industry-funded research criticised"
-    },
-    {
-      "label": "English (Kenya) 20",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-KE",
-      "gl": "KE",
-      "ceid": "KE:en",
-      "query": "\"political interference\" science OR researchers gagged OR findings suppressed"
-    },
-    {
-      "label": "English (Kenya) 21",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-KE",
-      "gl": "KE",
-      "ceid": "KE:en",
-      "query": "university investigation misconduct OR professor dismissed research fraud"
-    },
-    {
-      "label": "English (Philippines) 22",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-PH",
-      "gl": "PH",
-      "ceid": "PH:en",
-      "query": "\"editorial board\" resign OR mass resignation journal"
-    },
-    {
-      "label": "English (Philippines) 23",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-PH",
-      "gl": "PH",
-      "ceid": "PH:en",
-      "query": "Elsevier OR Springer Nature OR Wiley retraction OR paper mill integrity"
-    },
-    {
-      "label": "English (Philippines) 24",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-PH",
-      "gl": "PH",
-      "ceid": "PH:en",
-      "query": "\"registered report\" OR preregistration OR open science policy"
-    },
-    {
-      "label": "Spanish (Spain) 25",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "\"paper mill\" journal OR retraction OR submissions flagged"
-    },
-    {
-      "label": "Spanish (Spain) 26",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "\"research misconduct\" finding OR investigation OR fabricated data"
-    },
-    {
-      "label": "Spanish (Spain) 27",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "retraction record OR mass retraction OR \"expression of concern\" journal"
-    },
-    {
-      "label": "Spanish (Mexico) 28",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "\"image manipulation\" paper OR duplicated figures OR western blot integrity"
-    },
-    {
-      "label": "Spanish (Mexico) 29",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "plagiarism retracted OR thesis plagiarism OR degree revoked"
-    },
-    {
-      "label": "Spanish (Mexico) 30",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "\"ghost authorship\" OR \"authorship for sale\" OR gift authorship"
-    },
-    {
-      "label": "Spanish (Argentina) 31",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "\"p-hacking\" OR \"outcome switching\" OR selective reporting trial"
-    },
-    {
-      "label": "Spanish (Argentina) 32",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "\"citation cartel\" OR citation manipulation OR impact factor gaming delisted"
-    },
-    {
-      "label": "Spanish (Argentina) 33",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "\"AI-generated\" paper undisclosed OR ChatGPT manuscript detected"
-    },
-    {
-      "label": "Spanish (Colombia) 34",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "\"peer review\" fake OR rigged OR compromised special issue"
-    },
-    {
-      "label": "Spanish (Colombia) 35",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "\"predatory journal\" OR hijacked journal OR clone journal"
-    },
-    {
-      "label": "Spanish (Colombia) 36",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "\"replication crisis\" OR failed to replicate OR reproducibility project"
-    },
-    {
-      "label": "French (France) 37",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "FR",
-      "ceid": "FR:fr",
-      "query": "\"open access\" policy OR \"article processing charge\" rise OR transformative agreement"
-    },
-    {
-      "label": "French (France) 38",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "FR",
-      "ceid": "FR:fr",
-      "query": "\"data availability\" refused OR data sharing mandate research"
-    },
-    {
-      "label": "French (France) 39",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "FR",
-      "ceid": "FR:fr",
-      "query": "\"conflict of interest\" undisclosed author OR failed to disclose study"
-    },
-    {
-      "label": "French (Senegal) 40",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "SN",
-      "ceid": "SN:fr",
-      "query": "\"publish or perish\" OR research assessment reform OR DORA"
-    },
-    {
-      "label": "French (Senegal) 41",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "SN",
-      "ceid": "SN:fr",
-      "query": "PubPeer OR \"Retraction Watch\" OR data sleuth investigation"
-    },
-    {
-      "label": "French (Senegal) 42",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "SN",
-      "ceid": "SN:fr",
-      "query": "\"research integrity\" office OR national policy OR framework"
-    },
-    {
-      "label": "French (Canada) 43",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "CA",
-      "ceid": "CA:fr",
-      "query": "\"industry funding\" study conflict OR industry-funded research criticised"
-    },
-    {
-      "label": "French (Canada) 44",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "CA",
-      "ceid": "CA:fr",
-      "query": "\"political interference\" science OR researchers gagged OR findings suppressed"
-    },
-    {
-      "label": "French (Canada) 45",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "CA",
-      "ceid": "CA:fr",
-      "query": "university investigation misconduct OR professor dismissed research fraud"
-    },
-    {
-      "label": "Portuguese (Brazil) 46",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "BR",
-      "ceid": "BR:pt-419",
-      "query": "\"editorial board\" resign OR mass resignation journal"
-    },
-    {
-      "label": "Portuguese (Brazil) 47",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "BR",
-      "ceid": "BR:pt-419",
-      "query": "Elsevier OR Springer Nature OR Wiley retraction OR paper mill integrity"
-    },
-    {
-      "label": "Portuguese (Brazil) 48",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "BR",
-      "ceid": "BR:pt-419",
-      "query": "\"registered report\" OR preregistration OR open science policy"
-    },
-    {
-      "label": "Portuguese (Portugal) 49",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-PT",
-      "gl": "PT",
-      "ceid": "PT:pt-150",
-      "query": "\"paper mill\" journal OR retraction OR submissions flagged"
-    },
-    {
-      "label": "Portuguese (Portugal) 50",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-PT",
-      "gl": "PT",
-      "ceid": "PT:pt-150",
-      "query": "\"research misconduct\" finding OR investigation OR fabricated data"
-    },
-    {
-      "label": "Portuguese (Portugal) 51",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-PT",
-      "gl": "PT",
-      "ceid": "PT:pt-150",
-      "query": "retraction record OR mass retraction OR \"expression of concern\" journal"
-    },
-    {
-      "label": "Portuguese (Angola) 52",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-PT",
-      "gl": "AO",
-      "ceid": "AO:pt-150",
-      "query": "\"image manipulation\" paper OR duplicated figures OR western blot integrity"
-    },
-    {
-      "label": "Portuguese (Angola) 53",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-PT",
-      "gl": "AO",
-      "ceid": "AO:pt-150",
-      "query": "plagiarism retracted OR thesis plagiarism OR degree revoked"
-    },
-    {
-      "label": "Portuguese (Angola) 54",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-PT",
-      "gl": "AO",
-      "ceid": "AO:pt-150",
-      "query": "\"ghost authorship\" OR \"authorship for sale\" OR gift authorship"
-    },
-    {
-      "label": "German (Germany) 55",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "DE",
-      "ceid": "DE:de",
-      "query": "\"p-hacking\" OR \"outcome switching\" OR selective reporting trial"
-    },
-    {
-      "label": "German (Germany) 56",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "DE",
-      "ceid": "DE:de",
-      "query": "\"citation cartel\" OR citation manipulation OR impact factor gaming delisted"
-    },
-    {
-      "label": "German (Germany) 57",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "DE",
-      "ceid": "DE:de",
-      "query": "\"AI-generated\" paper undisclosed OR ChatGPT manuscript detected"
-    },
-    {
-      "label": "German (Austria) 58",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "AT",
-      "ceid": "AT:de",
-      "query": "\"peer review\" fake OR rigged OR compromised special issue"
-    },
-    {
-      "label": "German (Austria) 59",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "AT",
-      "ceid": "AT:de",
-      "query": "\"predatory journal\" OR hijacked journal OR clone journal"
-    },
-    {
-      "label": "German (Austria) 60",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "AT",
-      "ceid": "AT:de",
-      "query": "\"replication crisis\" OR failed to replicate OR reproducibility project"
-    },
-    {
-      "label": "Russian (Russia) 61",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "RU",
-      "ceid": "RU:ru",
-      "query": "\"open access\" policy OR \"article processing charge\" rise OR transformative agreement"
-    },
-    {
-      "label": "Russian (Russia) 62",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "RU",
-      "ceid": "RU:ru",
-      "query": "\"data availability\" refused OR data sharing mandate research"
-    },
-    {
-      "label": "Russian (Russia) 63",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "RU",
-      "ceid": "RU:ru",
-      "query": "\"conflict of interest\" undisclosed author OR failed to disclose study"
-    },
-    {
-      "label": "Russian (Kazakhstan) 64",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "KZ",
-      "ceid": "KZ:ru",
-      "query": "\"publish or perish\" OR research assessment reform OR DORA"
-    },
-    {
-      "label": "Russian (Kazakhstan) 65",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "KZ",
-      "ceid": "KZ:ru",
-      "query": "PubPeer OR \"Retraction Watch\" OR data sleuth investigation"
-    },
-    {
-      "label": "Russian (Kazakhstan) 66",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "KZ",
-      "ceid": "KZ:ru",
-      "query": "\"research integrity\" office OR national policy OR framework"
-    },
-    {
-      "label": "Arabic (Egypt) 67",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "EG",
-      "ceid": "EG:ar",
-      "query": "\"industry funding\" study conflict OR industry-funded research criticised"
-    },
-    {
-      "label": "Arabic (Egypt) 68",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "EG",
-      "ceid": "EG:ar",
-      "query": "\"political interference\" science OR researchers gagged OR findings suppressed"
-    },
-    {
-      "label": "Arabic (Egypt) 69",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "EG",
-      "ceid": "EG:ar",
-      "query": "university investigation misconduct OR professor dismissed research fraud"
-    },
-    {
-      "label": "Arabic (UAE) 70",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "AE",
-      "ceid": "AE:ar",
-      "query": "\"editorial board\" resign OR mass resignation journal"
-    },
-    {
-      "label": "Arabic (UAE) 71",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "AE",
-      "ceid": "AE:ar",
-      "query": "Elsevier OR Springer Nature OR Wiley retraction OR paper mill integrity"
-    },
-    {
-      "label": "Arabic (UAE) 72",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "AE",
-      "ceid": "AE:ar",
-      "query": "\"registered report\" OR preregistration OR open science policy"
-    },
-    {
-      "label": "Arabic (Lebanon) 73",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "LB",
-      "ceid": "LB:ar",
-      "query": "\"paper mill\" journal OR retraction OR submissions flagged"
-    },
-    {
-      "label": "Arabic (Lebanon) 74",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "LB",
-      "ceid": "LB:ar",
-      "query": "\"research misconduct\" finding OR investigation OR fabricated data"
-    },
-    {
-      "label": "Arabic (Lebanon) 75",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "LB",
-      "ceid": "LB:ar",
-      "query": "retraction record OR mass retraction OR \"expression of concern\" journal"
-    },
-    {
-      "label": "Chinese (Mainland) 76",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "\"image manipulation\" paper OR duplicated figures OR western blot integrity"
-    },
-    {
-      "label": "Chinese (Mainland) 77",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "plagiarism retracted OR thesis plagiarism OR degree revoked"
-    },
-    {
-      "label": "Chinese (Mainland) 78",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "\"ghost authorship\" OR \"authorship for sale\" OR gift authorship"
-    },
-    {
-      "label": "Chinese (Taiwan) 79",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "\"p-hacking\" OR \"outcome switching\" OR selective reporting trial"
-    },
-    {
-      "label": "Chinese (Taiwan) 80",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "\"citation cartel\" OR citation manipulation OR impact factor gaming delisted"
-    },
-    {
-      "label": "Chinese (Taiwan) 81",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "\"AI-generated\" paper undisclosed OR ChatGPT manuscript detected"
-    },
-    {
-      "label": "Chinese (Hong Kong) 82",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "\"peer review\" fake OR rigged OR compromised special issue"
-    },
-    {
-      "label": "Chinese (Hong Kong) 83",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "\"predatory journal\" OR hijacked journal OR clone journal"
-    },
-    {
-      "label": "Chinese (Hong Kong) 84",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "\"replication crisis\" OR failed to replicate OR reproducibility project"
-    },
-    {
-      "label": "Hindi (India) 85",
-      "lang": "hi",
-      "standing": "press",
-      "hl": "hi",
-      "gl": "IN",
-      "ceid": "IN:hi",
-      "query": "\"open access\" policy OR \"article processing charge\" rise OR transformative agreement"
-    },
-    {
-      "label": "Hindi (India) 86",
-      "lang": "hi",
-      "standing": "press",
-      "hl": "hi",
-      "gl": "IN",
-      "ceid": "IN:hi",
-      "query": "\"data availability\" refused OR data sharing mandate research"
-    },
-    {
-      "label": "Hindi (India) 87",
-      "lang": "hi",
-      "standing": "press",
-      "hl": "hi",
-      "gl": "IN",
-      "ceid": "IN:hi",
-      "query": "\"conflict of interest\" undisclosed author OR failed to disclose study"
-    },
-    {
-      "label": "Bengali (Bangladesh) 88",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "BD",
-      "ceid": "BD:bn",
-      "query": "\"publish or perish\" OR research assessment reform OR DORA"
-    },
-    {
-      "label": "Bengali (Bangladesh) 89",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "BD",
-      "ceid": "BD:bn",
-      "query": "PubPeer OR \"Retraction Watch\" OR data sleuth investigation"
-    },
-    {
-      "label": "Bengali (Bangladesh) 90",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "BD",
-      "ceid": "BD:bn",
-      "query": "\"research integrity\" office OR national policy OR framework"
-    },
-    {
-      "label": "Indonesian 91",
-      "lang": "id",
-      "standing": "press",
-      "hl": "id",
-      "gl": "ID",
-      "ceid": "ID:id",
-      "query": "\"industry funding\" study conflict OR industry-funded research criticised"
-    },
-    {
-      "label": "Indonesian 92",
-      "lang": "id",
-      "standing": "press",
-      "hl": "id",
-      "gl": "ID",
-      "ceid": "ID:id",
-      "query": "\"political interference\" science OR researchers gagged OR findings suppressed"
-    },
-    {
-      "label": "Indonesian 93",
-      "lang": "id",
-      "standing": "press",
-      "hl": "id",
-      "gl": "ID",
-      "ceid": "ID:id",
-      "query": "university investigation misconduct OR professor dismissed research fraud"
-    },
-    {
-      "label": "Japanese 94",
-      "lang": "ja",
-      "standing": "press",
-      "hl": "ja",
-      "gl": "JP",
-      "ceid": "JP:ja",
-      "query": "\"editorial board\" resign OR mass resignation journal"
-    },
-    {
-      "label": "Japanese 95",
-      "lang": "ja",
-      "standing": "press",
-      "hl": "ja",
-      "gl": "JP",
-      "ceid": "JP:ja",
-      "query": "Elsevier OR Springer Nature OR Wiley retraction OR paper mill integrity"
-    },
-    {
-      "label": "Japanese 96",
-      "lang": "ja",
-      "standing": "press",
-      "hl": "ja",
-      "gl": "JP",
-      "ceid": "JP:ja",
-      "query": "\"registered report\" OR preregistration OR open science policy"
-    },
-    {
-      "label": "Korean 97",
-      "lang": "ko",
-      "standing": "press",
-      "hl": "ko",
-      "gl": "KR",
-      "ceid": "KR:ko",
-      "query": "\"paper mill\" journal OR retraction OR submissions flagged"
-    },
-    {
-      "label": "Korean 98",
-      "lang": "ko",
-      "standing": "press",
-      "hl": "ko",
-      "gl": "KR",
-      "ceid": "KR:ko",
-      "query": "\"research misconduct\" finding OR investigation OR fabricated data"
-    },
-    {
-      "label": "Korean 99",
-      "lang": "ko",
-      "standing": "press",
-      "hl": "ko",
-      "gl": "KR",
-      "ceid": "KR:ko",
-      "query": "retraction record OR mass retraction OR \"expression of concern\" journal"
-    },
-    {
-      "label": "Turkish 100",
-      "lang": "tr",
-      "standing": "press",
-      "hl": "tr",
-      "gl": "TR",
-      "ceid": "TR:tr",
-      "query": "\"image manipulation\" paper OR duplicated figures OR western blot integrity"
-    },
-    {
-      "label": "Turkish 101",
-      "lang": "tr",
-      "standing": "press",
-      "hl": "tr",
-      "gl": "TR",
-      "ceid": "TR:tr",
-      "query": "plagiarism retracted OR thesis plagiarism OR degree revoked"
-    },
-    {
-      "label": "Turkish 102",
-      "lang": "tr",
-      "standing": "press",
-      "hl": "tr",
-      "gl": "TR",
-      "ceid": "TR:tr",
-      "query": "\"ghost authorship\" OR \"authorship for sale\" OR gift authorship"
-    },
-    {
-      "label": "Italian 103",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "IT",
-      "ceid": "IT:it",
-      "query": "\"p-hacking\" OR \"outcome switching\" OR selective reporting trial"
-    },
-    {
-      "label": "Italian 104",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "IT",
-      "ceid": "IT:it",
-      "query": "\"citation cartel\" OR citation manipulation OR impact factor gaming delisted"
-    },
-    {
-      "label": "Italian 105",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "IT",
-      "ceid": "IT:it",
-      "query": "\"AI-generated\" paper undisclosed OR ChatGPT manuscript detected"
-    },
-    {
-      "label": "Dutch 106",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "NL",
-      "ceid": "NL:nl",
-      "query": "\"peer review\" fake OR rigged OR compromised special issue"
-    },
-    {
-      "label": "Dutch 107",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "NL",
-      "ceid": "NL:nl",
-      "query": "\"predatory journal\" OR hijacked journal OR clone journal"
-    },
-    {
-      "label": "Dutch 108",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "NL",
-      "ceid": "NL:nl",
-      "query": "\"replication crisis\" OR failed to replicate OR reproducibility project"
-    },
-    {
-      "label": "Polish 109",
-      "lang": "pl",
-      "standing": "press",
-      "hl": "pl",
-      "gl": "PL",
-      "ceid": "PL:pl",
-      "query": "\"open access\" policy OR \"article processing charge\" rise OR transformative agreement"
-    },
-    {
-      "label": "Polish 110",
-      "lang": "pl",
-      "standing": "press",
-      "hl": "pl",
-      "gl": "PL",
-      "ceid": "PL:pl",
-      "query": "\"data availability\" refused OR data sharing mandate research"
-    },
-    {
-      "label": "Polish 111",
-      "lang": "pl",
-      "standing": "press",
-      "hl": "pl",
-      "gl": "PL",
-      "ceid": "PL:pl",
-      "query": "\"conflict of interest\" undisclosed author OR failed to disclose study"
-    },
-    {
-      "label": "Swedish 112",
-      "lang": "sv",
-      "standing": "press",
-      "hl": "sv",
-      "gl": "SE",
-      "ceid": "SE:sv",
-      "query": "\"publish or perish\" OR research assessment reform OR DORA"
-    },
-    {
-      "label": "Swedish 113",
-      "lang": "sv",
-      "standing": "press",
-      "hl": "sv",
-      "gl": "SE",
-      "ceid": "SE:sv",
-      "query": "PubPeer OR \"Retraction Watch\" OR data sleuth investigation"
-    },
-    {
-      "label": "Swedish 114",
-      "lang": "sv",
-      "standing": "press",
-      "hl": "sv",
-      "gl": "SE",
-      "ceid": "SE:sv",
-      "query": "\"research integrity\" office OR national policy OR framework"
-    },
-    {
-      "label": "Ukrainian 115",
-      "lang": "uk",
-      "standing": "press",
-      "hl": "uk",
-      "gl": "UA",
-      "ceid": "UA:uk",
-      "query": "\"industry funding\" study conflict OR industry-funded research criticised"
-    },
-    {
-      "label": "Ukrainian 116",
-      "lang": "uk",
-      "standing": "press",
-      "hl": "uk",
-      "gl": "UA",
-      "ceid": "UA:uk",
-      "query": "\"political interference\" science OR researchers gagged OR findings suppressed"
-    },
-    {
-      "label": "Ukrainian 117",
-      "lang": "uk",
-      "standing": "press",
-      "hl": "uk",
-      "gl": "UA",
-      "ceid": "UA:uk",
-      "query": "university investigation misconduct OR professor dismissed research fraud"
-    },
-    {
-      "label": "Greek 118",
-      "lang": "el",
-      "standing": "press",
-      "hl": "el",
-      "gl": "GR",
-      "ceid": "GR:el",
-      "query": "\"editorial board\" resign OR mass resignation journal"
-    },
-    {
-      "label": "Greek 119",
-      "lang": "el",
-      "standing": "press",
-      "hl": "el",
-      "gl": "GR",
-      "ceid": "GR:el",
-      "query": "Elsevier OR Springer Nature OR Wiley retraction OR paper mill integrity"
-    },
-    {
-      "label": "Greek 120",
-      "lang": "el",
-      "standing": "press",
-      "hl": "el",
-      "gl": "GR",
-      "ceid": "GR:el",
-      "query": "\"registered report\" OR preregistration OR open science policy"
-    },
-    {
-      "label": "Persian 121",
-      "lang": "fa",
-      "standing": "press",
-      "hl": "fa",
-      "gl": "IR",
-      "ceid": "IR:fa",
-      "query": "\"paper mill\" journal OR retraction OR submissions flagged"
-    },
-    {
-      "label": "Persian 122",
-      "lang": "fa",
-      "standing": "press",
-      "hl": "fa",
-      "gl": "IR",
-      "ceid": "IR:fa",
-      "query": "\"research misconduct\" finding OR investigation OR fabricated data"
-    },
-    {
-      "label": "Persian 123",
-      "lang": "fa",
-      "standing": "press",
-      "hl": "fa",
-      "gl": "IR",
-      "ceid": "IR:fa",
-      "query": "retraction record OR mass retraction OR \"expression of concern\" journal"
-    },
-    {
-      "label": "Vietnamese 124",
-      "lang": "vi",
-      "standing": "press",
-      "hl": "vi",
-      "gl": "VN",
-      "ceid": "VN:vi",
-      "query": "\"image manipulation\" paper OR duplicated figures OR western blot integrity"
-    },
-    {
-      "label": "Vietnamese 125",
-      "lang": "vi",
-      "standing": "press",
-      "hl": "vi",
-      "gl": "VN",
-      "ceid": "VN:vi",
-      "query": "plagiarism retracted OR thesis plagiarism OR degree revoked"
-    },
-    {
-      "label": "Vietnamese 126",
-      "lang": "vi",
-      "standing": "press",
-      "hl": "vi",
-      "gl": "VN",
-      "ceid": "VN:vi",
-      "query": "\"ghost authorship\" OR \"authorship for sale\" OR gift authorship"
-    },
-    {
-      "label": "Thai 127",
-      "lang": "th",
-      "standing": "press",
-      "hl": "th",
-      "gl": "TH",
-      "ceid": "TH:th",
-      "query": "\"p-hacking\" OR \"outcome switching\" OR selective reporting trial"
-    },
-    {
-      "label": "Thai 128",
-      "lang": "th",
-      "standing": "press",
-      "hl": "th",
-      "gl": "TH",
-      "ceid": "TH:th",
-      "query": "\"citation cartel\" OR citation manipulation OR impact factor gaming delisted"
-    },
-    {
-      "label": "Thai 129",
-      "lang": "th",
-      "standing": "press",
-      "hl": "th",
-      "gl": "TH",
-      "ceid": "TH:th",
-      "query": "\"AI-generated\" paper undisclosed OR ChatGPT manuscript detected"
-    },
-    {
-      "label": "Swahili (Kenya) 130",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "KE",
-      "ceid": "KE:sw",
-      "query": "\"peer review\" fake OR rigged OR compromised special issue"
-    },
-    {
-      "label": "Swahili (Kenya) 131",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "KE",
-      "ceid": "KE:sw",
-      "query": "\"predatory journal\" OR hijacked journal OR clone journal"
-    },
-    {
-      "label": "Swahili (Kenya) 132",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "KE",
-      "ceid": "KE:sw",
-      "query": "\"replication crisis\" OR failed to replicate OR reproducibility project"
-    },
-    {
-      "label": "Amharic (Ethiopia) 133",
-      "lang": "am",
-      "standing": "press",
-      "hl": "am",
-      "gl": "ET",
-      "ceid": "ET:am",
-      "query": "\"open access\" policy OR \"article processing charge\" rise OR transformative agreement"
-    },
-    {
-      "label": "Amharic (Ethiopia) 134",
-      "lang": "am",
-      "standing": "press",
-      "hl": "am",
-      "gl": "ET",
-      "ceid": "ET:am",
-      "query": "\"data availability\" refused OR data sharing mandate research"
-    },
-    {
-      "label": "Amharic (Ethiopia) 135",
-      "lang": "am",
-      "standing": "press",
-      "hl": "am",
-      "gl": "ET",
-      "ceid": "ET:am",
-      "query": "\"conflict of interest\" undisclosed author OR failed to disclose study"
-    },
-    {
-      "label": "Hausa (Nigeria) 136",
-      "lang": "ha",
-      "standing": "press",
-      "hl": "ha",
-      "gl": "NG",
-      "ceid": "NG:ha",
-      "query": "\"publish or perish\" OR research assessment reform OR DORA"
-    },
-    {
-      "label": "Hausa (Nigeria) 137",
-      "lang": "ha",
-      "standing": "press",
-      "hl": "ha",
-      "gl": "NG",
-      "ceid": "NG:ha",
-      "query": "PubPeer OR \"Retraction Watch\" OR data sleuth investigation"
-    },
-    {
-      "label": "Hausa (Nigeria) 138",
-      "lang": "ha",
-      "standing": "press",
-      "hl": "ha",
-      "gl": "NG",
-      "ceid": "NG:ha",
-      "query": "\"research integrity\" office OR national policy OR framework"
-    }
-  ],
-  "events": [
-    {
-      "label": "PubPeer threads and what follows",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "PubPeer comments OR \"flagged on PubPeer\" OR PubPeer thread retraction OR investigation"
-    },
-    {
-      "label": "Retraction tracking",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "\"Retraction Watch\" database OR retraction record year OR retractions rose"
-    },
-    {
-      "label": "Paper mill investigations",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "paper mill investigation OR submissions flagged integrity OR manuscript factory"
-    },
-    {
-      "label": "Publisher integrity actions",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "publisher retracts papers integrity OR journal delisted Web of Science"
-    },
-    {
-      "label": "Metascience findings",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "metascience study OR reproducibility project results OR research on research"
-    },
-    {
-      "label": "Image integrity",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "image duplication screening OR Elisabeth Bik OR figure manipulation detected"
-    },
-    {
-      "label": "Institutional investigations",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "university misconduct investigation finding OR research fraud dismissal"
-    },
-    {
-      "label": "Funder and integrity offices",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "\"Office of Research Integrity\" finding OR funder misconduct policy OR grant fraud"
-    },
-    {
-      "label": "Court and legal",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "research fraud charges OR grant fraud prosecution OR defamation case sleuth"
-    },
-    {
-      "label": "Open access policy",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "open access mandate OR public access policy funded research"
-    },
-    {
-      "label": "Peer review failures",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "fake peer review retracted OR special issue compromised OR reviewer fraud"
-    },
-    {
-      "label": "Predatory publishing",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "predatory journal list OR hijacked journal warning OR questionable conference"
-    },
-    {
-      "label": "Assessment reform",
-      "lang": "en",
-      "standing": "rights",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "DORA signatory OR research assessment reform OR responsible metrics coalition"
-    },
-    {
-      "label": "Political interference in science",
-      "lang": "en",
-      "standing": "rights",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "scientists gagged OR research findings suppressed OR science advice ignored"
-    },
-    {
-      "label": "AI in publishing",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "journal AI policy OR undisclosed AI text detected papers"
-    },
-    {
-      "label": "Publisher economics",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "article processing charges rise OR big deal cancelled OR publisher profit margin"
-    },
-    {
-      "label": "Sleuths and whistleblowers",
-      "lang": "en",
-      "standing": "rights",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "PubPeer comments OR research whistleblower retaliation OR legal threat critic"
-    }
-  ]
+ "_note": [
+  "Sources for the science wire.",
+  "",
+  "This is a feed on research integrity, not science news. A discovery is not",
+  "the subject; what is wrong with the published record is.",
+  "",
+  "Retraction Watch is in direct and was checked directly: the site is live,",
+  "  running WordPress and posting daily, so /feed/ is its standard endpoint.",
+  "",
+  "PubPeer is NOT in direct, and cannot be: it publishes no public RSS feed,",
+  "  only a keyed API you would have to request from them. It is covered by an",
+  "  events search instead, which catches PubPeer threads once someone reports",
+  "  on them — Retraction Watch does so constantly — but not the raw comments.",
+  "  If you want the comments themselves, email PubPeer for API access and add",
+  "  a small fetcher; the harvester's source format would need a new block for",
+  "  it, since everything here speaks RSS.",
+  "",
+  "direct: feeds proven working in the sibling Welcome to Your Galaxy repos.",
+  "  Nothing invented — an untested feed URL reports itself unreachable on every",
+  "  harvest and quietly makes the coverage figure a lie.",
+  "",
+  "  This is the weakest direct list of any feed built here, and honestly so:",
+  "  almost nothing in the sibling repos covers research integrity, so the",
+  "  carried-over feeds contribute little. The events block and the specialist",
+  "  additions below are what will actually make this wire work.",
+  "",
+  "gnews: Google News locale searches; the harvester builds the URL from",
+  "  hl / gl / ceid. Twenty-four queries rotate across 46 locales.",
+  "",
+  "events: subject searches for retraction tracking, paper mills, metascience,",
+  "  institutional investigations and publishing policy.",
+  "",
+  "standing is provenance, not importance:",
+  "  official  funders, institutions, integrity offices, courts",
+  "  research  journals, publishers, metascience",
+  "  press     general news across the locales",
+  "  rights    open science and accountability organisations",
+  "",
+  "Add these first, with URLs you have opened: Retraction Watch, PubPeer,",
+  "Nature news, Science news, Times Higher Education, Chemistry World, the",
+  "Committee on Publication Ethics, the Office of Research Integrity, MetaROR,",
+  "and the Center for Open Science."
+ ],
+ "direct": [
+  {
+   "name": "Retraction Watch",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://retractionwatch.com/feed/"
+  },
+  {
+   "name": "European Commission",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://ec.europa.eu/commission/presscorner/api/rss"
+  },
+  {
+   "name": "US Department of Justice",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://www.justice.gov/feeds/opa/justice-news.xml"
+  },
+  {
+   "name": "OECD",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://www.oecd.org/newsroom/index.xml"
+  },
+  {
+   "name": "World Health Organization",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://www.who.int/rss-feeds/news-english.xml"
+  },
+  {
+   "name": "UNCTAD",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://unctad.org/rss.xml"
+  },
+  {
+   "name": "World Bank",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://www.worldbank.org/en/news/all?format=rss"
+  },
+  {
+   "name": "UN News — Human Rights",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://news.un.org/feed/subscribe/en/news/topic/human-rights/feed/rss.xml"
+  },
+  {
+   "name": "Business & Human Rights Resource Centre",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.business-humanrights.org/en/rss/"
+  },
+  {
+   "name": "Bellingcat",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.bellingcat.com/feed/"
+  },
+  {
+   "name": "Transparency International",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.transparency.org/en/rss"
+  },
+  {
+   "name": "Corporate Europe Observatory",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://corporateeurope.org/en/rss.xml"
+  },
+  {
+   "name": "ODI",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://odi.org/en/feed/"
+  },
+  {
+   "name": "CEPR",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://cepr.org/rss.xml"
+  },
+  {
+   "name": "Peterson Institute",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.piie.com/rss.xml"
+  },
+  {
+   "name": "AidData",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.aiddata.org/rss"
+  },
+  {
+   "name": "Tax Justice Network",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://taxjustice.net/feed/"
+  },
+  {
+   "name": "Freedom House",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://freedomhouse.org/rss.xml"
+  },
+  {
+   "name": "Public Citizen · Global Trade Watch",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.citizen.org/feed/"
+  },
+  {
+   "name": "Privacy International",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://privacyinternational.org/rss.xml"
+  },
+  {
+   "name": "EDRi",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://edri.org/feed/"
+  },
+  {
+   "name": "Access Now",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.accessnow.org/feed/"
+  },
+  {
+   "name": "Electronic Frontier Foundation",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.eff.org/rss/updates.xml"
+  },
+  {
+   "name": "Article 19",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.article19.org/feed/"
+  },
+  {
+   "name": "Statewatch",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.statewatch.org/rss/"
+  },
+  {
+   "name": "Global Witness",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.globalwitness.org/en/rss/"
+  },
+  {
+   "name": "Human Rights Watch",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.hrw.org/rss/news"
+  },
+  {
+   "name": "Amnesty International",
+   "lang": "en",
+   "standing": "rights",
+   "url": "https://www.amnesty.org/en/rss/"
+  },
+  {
+   "name": "The Intercept",
+   "lang": "en",
+   "standing": "press",
+   "url": "https://theintercept.com/feed/?rss"
+  },
+  {
+   "name": "The Marshall Project",
+   "lang": "en",
+   "standing": "press",
+   "url": "https://www.themarshallproject.org/rss/recent.rss"
+  }
+ ],
+ "gnews": [
+  {
+   "label": "English (US) · fabrication",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "fabrication",
+   "query": "fabricated data research OR falsified results study OR data manipulation science"
+  },
+  {
+   "label": "English (US) · papermills",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "papermills",
+   "query": "\"paper mill\" journals OR mass-produced papers OR fake authorship sold"
+  },
+  {
+   "label": "English (US) · retraction",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "retraction",
+   "query": "retraction watch OR papers retracted OR record retractions journal"
+  },
+  {
+   "label": "English (US) · images",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "images",
+   "query": "image manipulation paper OR duplicated western blot OR image duplication research"
+  },
+  {
+   "label": "English (US) · peerreview",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "peerreview",
+   "query": "peer review fraud OR fake reviewer OR review ring journal"
+  },
+  {
+   "label": "English (US) · conflicts",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "conflicts",
+   "query": "undisclosed conflict of interest study OR industry funded research bias"
+  },
+  {
+   "label": "English (US) · ai",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "ai",
+   "query": "AI generated papers OR undisclosed AI use research OR chatbot text in journals"
+  },
+  {
+   "label": "English (US) · incentives",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "incentives",
+   "query": "\"publish or perish\" OR publication pressure researchers OR citation cartel"
+  },
+  {
+   "label": "English (UK) · fabrication",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "fabrication",
+   "query": "fabricated data research OR falsified results study OR data manipulation science"
+  },
+  {
+   "label": "English (UK) · papermills",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "papermills",
+   "query": "\"paper mill\" journals OR mass-produced papers OR fake authorship sold"
+  },
+  {
+   "label": "English (UK) · retraction",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "retraction",
+   "query": "retraction watch OR papers retracted OR record retractions journal"
+  },
+  {
+   "label": "English (UK) · images",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "images",
+   "query": "image manipulation paper OR duplicated western blot OR image duplication research"
+  },
+  {
+   "label": "English (UK) · peerreview",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "peerreview",
+   "query": "peer review fraud OR fake reviewer OR review ring journal"
+  },
+  {
+   "label": "English (UK) · conflicts",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "conflicts",
+   "query": "undisclosed conflict of interest study OR industry funded research bias"
+  },
+  {
+   "label": "English (UK) · ai",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "ai",
+   "query": "AI generated papers OR undisclosed AI use research OR chatbot text in journals"
+  },
+  {
+   "label": "English (UK) · incentives",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "theme": "incentives",
+   "query": "\"publish or perish\" OR publication pressure researchers OR citation cartel"
+  },
+  {
+   "label": "English (India) · fabrication",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "fabrication",
+   "query": "fabricated data research OR falsified results study OR data manipulation science"
+  },
+  {
+   "label": "English (India) · papermills",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "papermills",
+   "query": "\"paper mill\" journals OR mass-produced papers OR fake authorship sold"
+  },
+  {
+   "label": "English (India) · retraction",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "retraction",
+   "query": "retraction watch OR papers retracted OR record retractions journal"
+  },
+  {
+   "label": "English (India) · images",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "images",
+   "query": "image manipulation paper OR duplicated western blot OR image duplication research"
+  },
+  {
+   "label": "English (India) · peerreview",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "peerreview",
+   "query": "peer review fraud OR fake reviewer OR review ring journal"
+  },
+  {
+   "label": "English (India) · conflicts",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "conflicts",
+   "query": "undisclosed conflict of interest study OR industry funded research bias"
+  },
+  {
+   "label": "English (India) · ai",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "ai",
+   "query": "AI generated papers OR undisclosed AI use research OR chatbot text in journals"
+  },
+  {
+   "label": "English (India) · incentives",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "theme": "incentives",
+   "query": "\"publish or perish\" OR publication pressure researchers OR citation cartel"
+  },
+  {
+   "label": "English (Australia) · fabrication",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "fabrication",
+   "query": "fabricated data research OR falsified results study OR data manipulation science"
+  },
+  {
+   "label": "English (Australia) · papermills",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "papermills",
+   "query": "\"paper mill\" journals OR mass-produced papers OR fake authorship sold"
+  },
+  {
+   "label": "English (Australia) · retraction",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "retraction",
+   "query": "retraction watch OR papers retracted OR record retractions journal"
+  },
+  {
+   "label": "English (Australia) · images",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "images",
+   "query": "image manipulation paper OR duplicated western blot OR image duplication research"
+  },
+  {
+   "label": "English (Australia) · peerreview",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "peerreview",
+   "query": "peer review fraud OR fake reviewer OR review ring journal"
+  },
+  {
+   "label": "English (Australia) · conflicts",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "conflicts",
+   "query": "undisclosed conflict of interest study OR industry funded research bias"
+  },
+  {
+   "label": "English (Australia) · ai",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "ai",
+   "query": "AI generated papers OR undisclosed AI use research OR chatbot text in journals"
+  },
+  {
+   "label": "English (Australia) · incentives",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "theme": "incentives",
+   "query": "\"publish or perish\" OR publication pressure researchers OR citation cartel"
+  },
+  {
+   "label": "Español (España) · fabrication",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "fabrication",
+   "query": "datos falsificados investigación OR manipulación de datos ciencia OR resultados inventados"
+  },
+  {
+   "label": "Español (España) · papermills",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "papermills",
+   "query": "\"fábrica de artículos\" OR autoría vendida OR artículos falsos revistas"
+  },
+  {
+   "label": "Español (España) · retraction",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "retraction",
+   "query": "artículos retractados OR retractación récord revista científica"
+  },
+  {
+   "label": "Español (España) · images",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "images",
+   "query": "manipulación de imágenes artículo OR imágenes duplicadas investigación"
+  },
+  {
+   "label": "Español (España) · peerreview",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "peerreview",
+   "query": "fraude en revisión por pares OR revisores falsos revista"
+  },
+  {
+   "label": "Español (España) · conflicts",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "conflicts",
+   "query": "conflicto de interés no declarado estudio OR investigación financiada por la industria sesgo"
+  },
+  {
+   "label": "Español (España) · ai",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "ai",
+   "query": "artículos generados por IA OR uso no declarado de IA investigación"
+  },
+  {
+   "label": "Español (España) · incentives",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "incentives",
+   "query": "\"publicar o perecer\" OR presión por publicar investigadores OR cárteles de citas"
+  },
+  {
+   "label": "Español (México) · fabrication",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "fabrication",
+   "query": "datos falsificados investigación OR manipulación de datos ciencia OR resultados inventados"
+  },
+  {
+   "label": "Español (México) · papermills",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "papermills",
+   "query": "\"fábrica de artículos\" OR autoría vendida OR artículos falsos revistas"
+  },
+  {
+   "label": "Español (México) · retraction",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "retraction",
+   "query": "artículos retractados OR retractación récord revista científica"
+  },
+  {
+   "label": "Español (México) · images",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "images",
+   "query": "manipulación de imágenes artículo OR imágenes duplicadas investigación"
+  },
+  {
+   "label": "Español (México) · peerreview",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "peerreview",
+   "query": "fraude en revisión por pares OR revisores falsos revista"
+  },
+  {
+   "label": "Español (México) · conflicts",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "conflicts",
+   "query": "conflicto de interés no declarado estudio OR investigación financiada por la industria sesgo"
+  },
+  {
+   "label": "Español (México) · ai",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "ai",
+   "query": "artículos generados por IA OR uso no declarado de IA investigación"
+  },
+  {
+   "label": "Español (México) · incentives",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "theme": "incentives",
+   "query": "\"publicar o perecer\" OR presión por publicar investigadores OR cárteles de citas"
+  },
+  {
+   "label": "Português (Brasil) · fabrication",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "fabrication",
+   "query": "dados falsificados pesquisa OR manipulação de dados ciência OR resultados inventados"
+  },
+  {
+   "label": "Português (Brasil) · papermills",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "papermills",
+   "query": "\"fábrica de artigos\" OR autoria vendida OR artigos falsos revistas"
+  },
+  {
+   "label": "Português (Brasil) · retraction",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "retraction",
+   "query": "artigos retratados OR retratação recorde revista científica"
+  },
+  {
+   "label": "Português (Brasil) · images",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "images",
+   "query": "manipulação de imagens artigo OR imagens duplicadas pesquisa"
+  },
+  {
+   "label": "Português (Brasil) · peerreview",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "peerreview",
+   "query": "fraude na revisão por pares OR revisores falsos"
+  },
+  {
+   "label": "Português (Brasil) · conflicts",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "conflicts",
+   "query": "conflito de interesses não declarado estudo OR pesquisa financiada pela indústria viés"
+  },
+  {
+   "label": "Português (Brasil) · ai",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "ai",
+   "query": "artigos gerados por IA OR uso não declarado de IA pesquisa"
+  },
+  {
+   "label": "Português (Brasil) · incentives",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "incentives",
+   "query": "\"publicar ou perecer\" OR pressão para publicar pesquisadores"
+  },
+  {
+   "label": "Português (Portugal) · fabrication",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "fabrication",
+   "query": "dados falsificados pesquisa OR manipulação de dados ciência OR resultados inventados"
+  },
+  {
+   "label": "Português (Portugal) · papermills",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "papermills",
+   "query": "\"fábrica de artigos\" OR autoria vendida OR artigos falsos revistas"
+  },
+  {
+   "label": "Português (Portugal) · retraction",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "retraction",
+   "query": "artigos retratados OR retratação recorde revista científica"
+  },
+  {
+   "label": "Português (Portugal) · images",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "images",
+   "query": "manipulação de imagens artigo OR imagens duplicadas pesquisa"
+  },
+  {
+   "label": "Português (Portugal) · peerreview",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "peerreview",
+   "query": "fraude na revisão por pares OR revisores falsos"
+  },
+  {
+   "label": "Português (Portugal) · conflicts",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "conflicts",
+   "query": "conflito de interesses não declarado estudo OR pesquisa financiada pela indústria viés"
+  },
+  {
+   "label": "Português (Portugal) · ai",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "ai",
+   "query": "artigos gerados por IA OR uso não declarado de IA pesquisa"
+  },
+  {
+   "label": "Português (Portugal) · incentives",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-PT",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "theme": "incentives",
+   "query": "\"publicar ou perecer\" OR pressão para publicar pesquisadores"
+  },
+  {
+   "label": "Français · fabrication",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "fabrication",
+   "query": "données falsifiées recherche OR manipulation de données science OR résultats inventés"
+  },
+  {
+   "label": "Français · papermills",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "papermills",
+   "query": "\"usine à articles\" OR paper mill revues OR signatures vendues"
+  },
+  {
+   "label": "Français · retraction",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "retraction",
+   "query": "articles rétractés OR rétractations record revue scientifique"
+  },
+  {
+   "label": "Français · images",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "images",
+   "query": "manipulation d'images article OR images dupliquées recherche"
+  },
+  {
+   "label": "Français · peerreview",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "peerreview",
+   "query": "fraude à l'évaluation par les pairs OR faux relecteurs"
+  },
+  {
+   "label": "Français · conflicts",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "conflicts",
+   "query": "conflit d'intérêts non déclaré étude OR recherche financée par l'industrie biais"
+  },
+  {
+   "label": "Français · ai",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "ai",
+   "query": "articles générés par IA OR usage non déclaré de l'IA recherche"
+  },
+  {
+   "label": "Français · incentives",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "incentives",
+   "query": "\"publier ou périr\" OR pression à la publication chercheurs"
+  },
+  {
+   "label": "Deutsch · fabrication",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "fabrication",
+   "query": "gefälschte Daten Forschung OR Datenmanipulation Wissenschaft OR erfundene Ergebnisse"
+  },
+  {
+   "label": "Deutsch · papermills",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "papermills",
+   "query": "Papierfabrik Fachzeitschriften OR gekaufte Autorenschaft OR paper mill"
+  },
+  {
+   "label": "Deutsch · retraction",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "retraction",
+   "query": "zurückgezogene Studien OR Rekord an Rücknahmen Fachzeitschrift"
+  },
+  {
+   "label": "Deutsch · images",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "images",
+   "query": "Bildmanipulation Studie OR duplizierte Abbildungen Forschung"
+  },
+  {
+   "label": "Deutsch · peerreview",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "peerreview",
+   "query": "Peer-Review-Betrug OR gefälschte Gutachter"
+  },
+  {
+   "label": "Deutsch · conflicts",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "conflicts",
+   "query": "nicht offengelegter Interessenkonflikt Studie OR industriefinanzierte Forschung Verzerrung"
+  },
+  {
+   "label": "Deutsch · ai",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "ai",
+   "query": "KI-generierte Aufsätze OR nicht offengelegte KI-Nutzung Forschung"
+  },
+  {
+   "label": "Deutsch · incentives",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "incentives",
+   "query": "\"publish or perish\" OR Publikationsdruck Forschende OR Zitierkartell"
+  },
+  {
+   "label": "Italiano · fabrication",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "fabrication",
+   "query": "dati falsificati ricerca OR manipolazione dei dati scienza"
+  },
+  {
+   "label": "Italiano · papermills",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "papermills",
+   "query": "\"fabbrica di articoli\" OR paper mill riviste OR firme vendute"
+  },
+  {
+   "label": "Italiano · retraction",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "retraction",
+   "query": "articoli ritirati OR ritrattazioni record rivista scientifica"
+  },
+  {
+   "label": "Italiano · images",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "images",
+   "query": "manipolazione di immagini articolo OR immagini duplicate ricerca"
+  },
+  {
+   "label": "Italiano · peerreview",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "peerreview",
+   "query": "frode nella revisione tra pari OR revisori falsi"
+  },
+  {
+   "label": "Italiano · conflicts",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "conflicts",
+   "query": "conflitto di interessi non dichiarato studio OR ricerca finanziata dall'industria"
+  },
+  {
+   "label": "Italiano · ai",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "ai",
+   "query": "articoli generati dall'IA OR uso non dichiarato dell'IA ricerca"
+  },
+  {
+   "label": "Italiano · incentives",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "incentives",
+   "query": "\"pubblica o muori\" OR pressione a pubblicare ricercatori"
+  },
+  {
+   "label": "Nederlands · fabrication",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "fabrication",
+   "query": "vervalste data onderzoek OR datamanipulatie wetenschap"
+  },
+  {
+   "label": "Nederlands · papermills",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "papermills",
+   "query": "paper mill tijdschriften OR gekocht auteurschap"
+  },
+  {
+   "label": "Nederlands · retraction",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "retraction",
+   "query": "ingetrokken artikelen OR recordaantal intrekkingen"
+  },
+  {
+   "label": "Nederlands · images",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "images",
+   "query": "beeldmanipulatie artikel OR gedupliceerde afbeeldingen onderzoek"
+  },
+  {
+   "label": "Nederlands · peerreview",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "peerreview",
+   "query": "peerreviewfraude OR nepreviewers"
+  },
+  {
+   "label": "Nederlands · conflicts",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "conflicts",
+   "query": "niet-gemelde belangenverstrengeling studie OR industrie gefinancierd onderzoek"
+  },
+  {
+   "label": "Nederlands · ai",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "theme": "ai",
+   "query": "door AI gegenereerde artikelen OR onvermeld AI-gebruik onderzoek"
+  },
+  {
+   "label": "Polski · fabrication",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "theme": "fabrication",
+   "query": "sfałszowane dane badania OR manipulacja danymi nauka"
+  },
+  {
+   "label": "Polski · papermills",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "theme": "papermills",
+   "query": "fabryka artykułów naukowych OR kupione autorstwo"
+  },
+  {
+   "label": "Polski · retraction",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "theme": "retraction",
+   "query": "wycofane artykuły OR rekordowa liczba wycofań"
+  },
+  {
+   "label": "Polski · images",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "theme": "images",
+   "query": "manipulacja obrazami w publikacji OR zduplikowane ryciny"
+  },
+  {
+   "label": "Polski · peerreview",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "theme": "peerreview",
+   "query": "oszustwo w recenzji naukowej OR fałszywi recenzenci"
+  },
+  {
+   "label": "Polski · conflicts",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "theme": "conflicts",
+   "query": "nieujawniony konflikt interesów badanie OR badania finansowane przez przemysł"
+  },
+  {
+   "label": "Русский · fabrication",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "fabrication",
+   "query": "фальсификация данных исследование OR подделка результатов наука"
+  },
+  {
+   "label": "Русский · papermills",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "papermills",
+   "query": "фабрика статей OR купленное авторство OR журнал накрутка"
+  },
+  {
+   "label": "Русский · retraction",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "retraction",
+   "query": "отозванные статьи OR рекорд отзывов научный журнал"
+  },
+  {
+   "label": "Русский · images",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "images",
+   "query": "манипуляция изображениями статья OR дублирование изображений"
+  },
+  {
+   "label": "Русский · peerreview",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "peerreview",
+   "query": "мошенничество в рецензировании OR фальшивые рецензенты"
+  },
+  {
+   "label": "Русский · conflicts",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "conflicts",
+   "query": "нераскрытый конфликт интересов исследование OR исследование профинансировано отраслью"
+  },
+  {
+   "label": "Українська · fabrication",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "theme": "fabrication",
+   "query": "фальсифікація даних дослідження OR підробка результатів"
+  },
+  {
+   "label": "Українська · retraction",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "theme": "retraction",
+   "query": "відкликані статті OR рекорд відкликань"
+  },
+  {
+   "label": "Українська · papermills",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "theme": "papermills",
+   "query": "фабрика статей OR куплене авторство"
+  },
+  {
+   "label": "Türkçe · fabrication",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "theme": "fabrication",
+   "query": "veri sahteciliği araştırma OR uydurma sonuçlar bilim"
+  },
+  {
+   "label": "Türkçe · papermills",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "theme": "papermills",
+   "query": "makale fabrikası OR satılan yazarlık"
+  },
+  {
+   "label": "Türkçe · retraction",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "theme": "retraction",
+   "query": "geri çekilen makaleler OR rekor geri çekilme"
+  },
+  {
+   "label": "Türkçe · images",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "theme": "images",
+   "query": "görsel manipülasyon makale OR yinelenen görseller"
+  },
+  {
+   "label": "Türkçe · peerreview",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "theme": "peerreview",
+   "query": "hakem değerlendirmesi sahteciliği OR sahte hakem"
+  },
+  {
+   "label": "Türkçe · conflicts",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "theme": "conflicts",
+   "query": "açıklanmayan çıkar çatışması çalışma OR sanayi destekli araştırma"
+  },
+  {
+   "label": "Bahasa Indonesia · fabrication",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "theme": "fabrication",
+   "query": "pemalsuan data penelitian OR manipulasi data ilmiah"
+  },
+  {
+   "label": "Bahasa Indonesia · papermills",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "theme": "papermills",
+   "query": "pabrik artikel ilmiah OR jual beli kepenulisan"
+  },
+  {
+   "label": "Bahasa Indonesia · retraction",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "theme": "retraction",
+   "query": "artikel ditarik OR rekor penarikan jurnal"
+  },
+  {
+   "label": "Bahasa Indonesia · peerreview",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "theme": "peerreview",
+   "query": "kecurangan telaah sejawat OR reviewer palsu"
+  },
+  {
+   "label": "Bahasa Indonesia · conflicts",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "theme": "conflicts",
+   "query": "konflik kepentingan tidak diungkapkan penelitian"
+  },
+  {
+   "label": "Tiếng Việt · fabrication",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "theme": "fabrication",
+   "query": "ngụy tạo dữ liệu nghiên cứu OR làm giả kết quả khoa học"
+  },
+  {
+   "label": "Tiếng Việt · papermills",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "theme": "papermills",
+   "query": "nhà máy bài báo khoa học OR mua bán quyền tác giả"
+  },
+  {
+   "label": "Tiếng Việt · retraction",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "theme": "retraction",
+   "query": "bài báo bị rút OR kỷ lục rút bài"
+  },
+  {
+   "label": "Tiếng Việt · conflicts",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "theme": "conflicts",
+   "query": "xung đột lợi ích không công bố nghiên cứu"
+  },
+  {
+   "label": "ไทย · fabrication",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "theme": "fabrication",
+   "query": "ปลอมแปลงข้อมูลวิจัย OR บิดเบือนข้อมูลวิทยาศาสตร์"
+  },
+  {
+   "label": "ไทย · papermills",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "theme": "papermills",
+   "query": "โรงงานผลิตบทความวิชาการ OR ซื้อขายชื่อผู้แต่ง"
+  },
+  {
+   "label": "ไทย · retraction",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "theme": "retraction",
+   "query": "บทความถูกถอน OR สถิติการถอนบทความ"
+  },
+  {
+   "label": "日本語 · fabrication",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "fabrication",
+   "query": "研究データ捏造 OR 改ざん 論文 OR ねつ造 研究不正"
+  },
+  {
+   "label": "日本語 · papermills",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "papermills",
+   "query": "論文工場 OR 著者名の売買 OR ペーパーミル"
+  },
+  {
+   "label": "日本語 · retraction",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "retraction",
+   "query": "論文撤回 OR 撤回論文 過去最多"
+  },
+  {
+   "label": "日本語 · images",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "images",
+   "query": "画像の不正加工 論文 OR 画像使い回し 研究"
+  },
+  {
+   "label": "日本語 · peerreview",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "peerreview",
+   "query": "査読不正 OR 偽の査読者"
+  },
+  {
+   "label": "日本語 · conflicts",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "conflicts",
+   "query": "利益相反 未開示 論文 OR 業界資金 研究 偏り"
+  },
+  {
+   "label": "日本語 · ai",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "ai",
+   "query": "AI生成論文 OR 生成AI 未申告 研究"
+  },
+  {
+   "label": "日本語 · incentives",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "incentives",
+   "query": "論文数至上主義 OR 研究者 業績プレッシャー"
+  },
+  {
+   "label": "한국어 · fabrication",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "fabrication",
+   "query": "연구 데이터 조작 OR 논문 조작 OR 자료 위조 연구"
+  },
+  {
+   "label": "한국어 · papermills",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "papermills",
+   "query": "논문 공장 OR 저자 끼워넣기 OR 논문 대필 판매"
+  },
+  {
+   "label": "한국어 · retraction",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "retraction",
+   "query": "논문 철회 OR 철회 논문 역대 최다"
+  },
+  {
+   "label": "한국어 · images",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "images",
+   "query": "이미지 조작 논문 OR 사진 중복 게재"
+  },
+  {
+   "label": "한국어 · peerreview",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "peerreview",
+   "query": "심사 부정 OR 가짜 심사위원"
+  },
+  {
+   "label": "한국어 · conflicts",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "conflicts",
+   "query": "이해충돌 미공개 연구 OR 업계 지원 연구 편향"
+  },
+  {
+   "label": "한국어 · ai",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "ai",
+   "query": "AI 생성 논문 OR 생성형 AI 미표기 연구"
+  },
+  {
+   "label": "中文 (台灣) · fabrication",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "fabrication",
+   "query": "科研資料造假 OR 論文造假 OR 篡改資料 研究"
+  },
+  {
+   "label": "中文 (台灣) · papermills",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "papermills",
+   "query": "論文工廠 OR 代寫代發 OR 買賣論文"
+  },
+  {
+   "label": "中文 (台灣) · retraction",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "retraction",
+   "query": "論文撤稿 OR 撤稿數量創新高"
+  },
+  {
+   "label": "中文 (台灣) · images",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "images",
+   "query": "圖片不當處理 論文 OR 影象重複使用 研究"
+  },
+  {
+   "label": "中文 (台灣) · peerreview",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "peerreview",
+   "query": "同行評審造假 OR 虛假審稿人"
+  },
+  {
+   "label": "中文 (台灣) · conflicts",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "conflicts",
+   "query": "未披露利益衝突 研究 OR 企業資助 研究 偏倚"
+  },
+  {
+   "label": "中文 (台灣) · ai",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "ai",
+   "query": "AI生成論文 OR 未宣告使用人工智慧 研究"
+  },
+  {
+   "label": "中文 (台灣) · incentives",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "incentives",
+   "query": "唯論文 OR 科研考覈壓力 OR 引用卡特爾"
+  },
+  {
+   "label": "中文 (香港) · fabrication",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "fabrication",
+   "query": "科研數據造假 OR 論文造假 OR 篡改數據 研究"
+  },
+  {
+   "label": "中文 (香港) · papermills",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "papermills",
+   "query": "論文工廠 OR 代寫代發 OR 買賣論文"
+  },
+  {
+   "label": "中文 (香港) · retraction",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "retraction",
+   "query": "論文撤稿 OR 撤稿數量創新高"
+  },
+  {
+   "label": "中文 (香港) · images",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "images",
+   "query": "圖片不當處理 論文 OR 圖像重複使用 研究"
+  },
+  {
+   "label": "中文 (香港) · peerreview",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "peerreview",
+   "query": "同行評審造假 OR 虛假審稿人"
+  },
+  {
+   "label": "中文 (香港) · conflicts",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "conflicts",
+   "query": "未披露利益衝突 研究 OR 企業資助 研究 偏倚"
+  },
+  {
+   "label": "中文 (香港) · ai",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "ai",
+   "query": "AI生成論文 OR 未聲明使用人工智能 研究"
+  },
+  {
+   "label": "中文 (香港) · incentives",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "theme": "incentives",
+   "query": "唯論文 OR 科研考覈壓力 OR 引用卡特爾"
+  },
+  {
+   "label": "हिन्दी · fabrication",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "theme": "fabrication",
+   "query": "शोध डेटा में हेराफेरी OR फर्जी शोध परिणाम"
+  },
+  {
+   "label": "हिन्दी · papermills",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "theme": "papermills",
+   "query": "पेपर मिल शोध पत्र OR लेखकत्व की बिक्री"
+  },
+  {
+   "label": "हिन्दी · retraction",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "theme": "retraction",
+   "query": "शोध पत्र वापस OR रिकॉर्ड वापसी पत्रिका"
+  },
+  {
+   "label": "हिन्दी · conflicts",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "theme": "conflicts",
+   "query": "अघोषित हितों का टकराव अध्ययन"
+  },
+  {
+   "label": "বাংলা · fabrication",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "theme": "fabrication",
+   "query": "গবেষণার তথ্য জালিয়াতি OR ভুয়া গবেষণা ফলাফল"
+  },
+  {
+   "label": "বাংলা · papermills",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "theme": "papermills",
+   "query": "পেপার মিল গবেষণা OR লেখকত্ব বিক্রি"
+  },
+  {
+   "label": "বাংলা · retraction",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "theme": "retraction",
+   "query": "গবেষণাপত্র প্রত্যাহার"
+  },
+  {
+   "label": "العربية · fabrication",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "theme": "fabrication",
+   "query": "تزوير بيانات البحث OR تلفيق نتائج علمية"
+  },
+  {
+   "label": "العربية · papermills",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "theme": "papermills",
+   "query": "مصانع الأبحاث OR بيع حقوق التأليف العلمي"
+  },
+  {
+   "label": "العربية · retraction",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "theme": "retraction",
+   "query": "سحب أبحاث علمية OR رقم قياسي في سحب الأوراق"
+  },
+  {
+   "label": "العربية · peerreview",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "theme": "peerreview",
+   "query": "تزوير مراجعة الأقران OR محكمون وهميون"
+  },
+  {
+   "label": "العربية · conflicts",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "theme": "conflicts",
+   "query": "تضارب مصالح غير معلن دراسة"
+  },
+  {
+   "label": "فارسی · fabrication",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "theme": "fabrication",
+   "query": "جعل داده‌های پژوهشی OR دستکاری نتایج علمی"
+  },
+  {
+   "label": "فارسی · papermills",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "theme": "papermills",
+   "query": "کارخانه مقاله OR فروش نویسندگی مقاله"
+  },
+  {
+   "label": "فارسی · retraction",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "theme": "retraction",
+   "query": "بازپس‌گیری مقالات علمی"
+  },
+  {
+   "label": "Ελληνικά · fabrication",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "theme": "fabrication",
+   "query": "παραποίηση δεδομένων έρευνα OR κατασκευασμένα αποτελέσματα"
+  },
+  {
+   "label": "Ελληνικά · papermills",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "theme": "papermills",
+   "query": "εργοστάσια άρθρων OR πώληση συγγραφικών δικαιωμάτων"
+  },
+  {
+   "label": "Ελληνικά · retraction",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "theme": "retraction",
+   "query": "ανακλήσεις άρθρων OR ρεκόρ ανακλήσεων"
+  },
+  {
+   "label": "Ελληνικά · conflicts",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "theme": "conflicts",
+   "query": "μη δηλωμένη σύγκρουση συμφερόντων μελέτη"
+  },
+  {
+   "label": "Svenska · fabrication",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "theme": "fabrication",
+   "query": "förfalskade forskningsdata OR datamanipulation forskning"
+  },
+  {
+   "label": "Svenska · papermills",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "theme": "papermills",
+   "query": "artikelfabrik OR köpt författarskap"
+  },
+  {
+   "label": "Svenska · retraction",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "theme": "retraction",
+   "query": "indragna artiklar OR rekordmånga indragningar"
+  },
+  {
+   "label": "Svenska · peerreview",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "theme": "peerreview",
+   "query": "granskningsfusk OR falska granskare"
+  },
+  {
+   "label": "Svenska · conflicts",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "theme": "conflicts",
+   "query": "odeklarerad intressekonflikt studie"
+  },
+  {
+   "label": "Kiswahili · fabrication",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "KE",
+   "ceid": "KE:sw",
+   "theme": "fabrication",
+   "query": "kughushi data za utafiti OR matokeo ya kughushi"
+  },
+  {
+   "label": "Kiswahili · retraction",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "KE",
+   "ceid": "KE:sw",
+   "theme": "retraction",
+   "query": "makala za kisayansi kuondolewa"
+  },
+  {
+   "label": "አማርኛ · fabrication",
+   "lang": "am",
+   "standing": "press",
+   "hl": "am",
+   "gl": "ET",
+   "ceid": "ET:am",
+   "theme": "fabrication",
+   "query": "የምርምር መረጃ ማጭበርበር"
+  },
+  {
+   "label": "አማርኛ · retraction",
+   "lang": "am",
+   "standing": "press",
+   "hl": "am",
+   "gl": "ET",
+   "ceid": "ET:am",
+   "theme": "retraction",
+   "query": "የተመለሱ ጽሑፎች ምርምር"
+  },
+  {
+   "label": "Hausa · fabrication",
+   "lang": "ha",
+   "standing": "press",
+   "hl": "ha",
+   "gl": "NG",
+   "ceid": "NG:ha",
+   "theme": "fabrication",
+   "query": "jabun bayanan bincike"
+  },
+  {
+   "label": "Hausa · retraction",
+   "lang": "ha",
+   "standing": "press",
+   "hl": "ha",
+   "gl": "NG",
+   "ceid": "NG:ha",
+   "theme": "retraction",
+   "query": "an janye takardun bincike"
+  },
+  {
+   "label": "English (US) · citations",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "citations",
+   "query": "citation cartel OR coercive citation OR impact factor manipulation journal delisted"
+  },
+  {
+   "label": "Español · citations",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "citations",
+   "query": "cártel de citas OR citación coercitiva OR manipulación del factor de impacto revista"
+  },
+  {
+   "label": "Português (BR) · citations",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "citations",
+   "query": "cartel de citações OR citação coerciva OR manipulação do fator de impacto"
+  },
+  {
+   "label": "Français · citations",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "citations",
+   "query": "cartel de citations OR citation coercitive OR manipulation du facteur d'impact"
+  },
+  {
+   "label": "Deutsch · citations",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "citations",
+   "query": "Zitationskartell OR erzwungene Zitationen OR Manipulation des Impact-Faktors"
+  },
+  {
+   "label": "Italiano · citations",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "citations",
+   "query": "cartello di citazioni OR citazione coercitiva OR manipolazione dell'impact factor"
+  },
+  {
+   "label": "Русский · citations",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "citations",
+   "query": "цитатный картель OR принудительное цитирование OR манипуляция импакт-фактором"
+  },
+  {
+   "label": "日本語 · citations",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "citations",
+   "query": "引用カルテル OR 引用の強要 OR インパクトファクター 操作"
+  },
+  {
+   "label": "한국어 · citations",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "citations",
+   "query": "인용 카르텔 OR 인용 강요 OR 영향력 지수 조작"
+  },
+  {
+   "label": "中文 · citations",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "citations",
+   "query": "引用卡特爾 OR 強制引用 OR 影響因子 操縱 期刊除名"
+  },
+  {
+   "label": "English (US) · funding",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "funding",
+   "query": "industry funded study bias OR research funding conditions political OR funder influence findings"
+  },
+  {
+   "label": "Español · funding",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "funding",
+   "query": "estudio financiado por la industria sesgo OR condiciones políticas a la financiación de la investigación"
+  },
+  {
+   "label": "Português (BR) · funding",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "funding",
+   "query": "estudo financiado pela indústria viés OR condições políticas ao financiamento da investigação"
+  },
+  {
+   "label": "Français · funding",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "funding",
+   "query": "étude financée par l'industrie biais OR conditions politiques au financement de la recherche"
+  },
+  {
+   "label": "Deutsch · funding",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "funding",
+   "query": "industriefinanzierte Studie Verzerrung OR politische Auflagen Forschungsförderung"
+  },
+  {
+   "label": "Italiano · funding",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "funding",
+   "query": "studio finanziato dall'industria distorsione OR condizioni politiche ai finanziamenti alla ricerca"
+  },
+  {
+   "label": "Русский · funding",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "funding",
+   "query": "исследование, профинансированное отраслью, смещение OR политические условия финансирования науки"
+  },
+  {
+   "label": "日本語 · funding",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "funding",
+   "query": "業界資金 研究 偏り OR 研究資金 政治的条件"
+  },
+  {
+   "label": "한국어 · funding",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "funding",
+   "query": "업계 자금 연구 편향 OR 연구비 정치적 조건"
+  },
+  {
+   "label": "中文 · funding",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "funding",
+   "query": "企業資助 研究 偏倚 OR 科研經費 政治 條件"
+  },
+  {
+   "label": "English (US) · stats",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "stats",
+   "query": "p-hacking OR salami slicing publication OR statistical errors papers audit"
+  },
+  {
+   "label": "Español · stats",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "stats",
+   "query": "p-hacking OR fragmentación de publicaciones OR errores estadísticos en artículos"
+  },
+  {
+   "label": "Português (BR) · stats",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "stats",
+   "query": "p-hacking OR fatiamento de publicações OR erros estatísticos em artigos"
+  },
+  {
+   "label": "Français · stats",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "stats",
+   "query": "p-hacking OR saucissonnage des publications OR erreurs statistiques dans les articles"
+  },
+  {
+   "label": "Deutsch · stats",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "stats",
+   "query": "p-Hacking OR Salami-Taktik Publikationen OR statistische Fehler in Fachartikeln"
+  },
+  {
+   "label": "Italiano · stats",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "theme": "stats",
+   "query": "p-hacking OR pubblicazioni a salame OR errori statistici negli articoli"
+  },
+  {
+   "label": "Русский · stats",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "theme": "stats",
+   "query": "p-хакинг OR дробление публикаций OR статистические ошибки в статьях"
+  },
+  {
+   "label": "日本語 · stats",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "stats",
+   "query": "pハッキング OR サラミ出版 OR 統計的誤り 論文"
+  },
+  {
+   "label": "한국어 · stats",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "stats",
+   "query": "p 해킹 OR 살라미 논문 OR 통계 오류 논문"
+  },
+  {
+   "label": "中文 · stats",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "stats",
+   "query": "p值操縱 OR 拆分發表 OR 論文 統計錯誤"
+  },
+  {
+   "label": "English (US) · sleuths",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "sleuths",
+   "query": "research integrity sleuth OR PubPeer comments investigation OR image sleuth flagged papers"
+  },
+  {
+   "label": "Español · sleuths",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "sleuths",
+   "query": "detectives de la integridad científica OR comentarios en PubPeer investigación"
+  },
+  {
+   "label": "Português (BR) · sleuths",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "sleuths",
+   "query": "detetives da integridade científica OR comentários no PubPeer investigação"
+  },
+  {
+   "label": "Français · sleuths",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "sleuths",
+   "query": "limiers de l'intégrité scientifique OR commentaires PubPeer enquête"
+  },
+  {
+   "label": "Deutsch · sleuths",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "sleuths",
+   "query": "Wissenschaftsdetektive Integrität OR PubPeer Hinweise Untersuchung"
+  },
+  {
+   "label": "日本語 · sleuths",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "sleuths",
+   "query": "研究不正 追及 OR パブピア 指摘"
+  },
+  {
+   "label": "한국어 · sleuths",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "sleuths",
+   "query": "연구 부정 추적자 OR 펍피어 지적"
+  },
+  {
+   "label": "中文 · sleuths",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "sleuths",
+   "query": "學術打假 OR PubPeer 質疑 調查"
+  },
+  {
+   "label": "English (US) · contamination",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "theme": "contamination",
+   "query": "retracted paper still cited OR fraudulent research contaminated field OR literature contamination"
+  },
+  {
+   "label": "Español · contamination",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "theme": "contamination",
+   "query": "artículo retractado sigue siendo citado OR contaminación de la literatura científica"
+  },
+  {
+   "label": "Português (BR) · contamination",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "theme": "contamination",
+   "query": "artigo retratado continua a ser citado OR contaminação da literatura científica"
+  },
+  {
+   "label": "Français · contamination",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "theme": "contamination",
+   "query": "article rétracté toujours cité OR contamination de la littérature scientifique"
+  },
+  {
+   "label": "Deutsch · contamination",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "theme": "contamination",
+   "query": "zurückgezogene Studie weiterhin zitiert OR Kontamination der Fachliteratur"
+  },
+  {
+   "label": "日本語 · contamination",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "theme": "contamination",
+   "query": "撤回論文 引用され続ける OR 研究不正 波及"
+  },
+  {
+   "label": "한국어 · contamination",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "theme": "contamination",
+   "query": "철회 논문 계속 인용 OR 부정 연구 파급"
+  },
+  {
+   "label": "中文 · contamination",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "theme": "contamination",
+   "query": "撤稿論文 仍被引用 OR 學術汙染"
+  }
+ ],
+ "events": [
+  {
+   "label": "PubPeer threads and what follows",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "PubPeer comments OR \"flagged on PubPeer\" OR PubPeer thread retraction OR investigation"
+  },
+  {
+   "label": "Retraction tracking",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "\"Retraction Watch\" database OR retraction record year OR retractions rose"
+  },
+  {
+   "label": "Paper mill investigations",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "paper mill investigation OR submissions flagged integrity OR manuscript factory"
+  },
+  {
+   "label": "Publisher integrity actions",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "publisher retracts papers integrity OR journal delisted Web of Science"
+  },
+  {
+   "label": "Metascience findings",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "metascience study OR reproducibility project results OR research on research"
+  },
+  {
+   "label": "Image integrity",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "image duplication screening OR Elisabeth Bik OR figure manipulation detected"
+  },
+  {
+   "label": "Institutional investigations",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "university misconduct investigation finding OR research fraud dismissal"
+  },
+  {
+   "label": "Funder and integrity offices",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "\"Office of Research Integrity\" finding OR funder misconduct policy OR grant fraud"
+  },
+  {
+   "label": "Court and legal",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "research fraud charges OR grant fraud prosecution OR defamation case sleuth"
+  },
+  {
+   "label": "Open access policy",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "open access mandate OR public access policy funded research"
+  },
+  {
+   "label": "Peer review failures",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "fake peer review retracted OR special issue compromised OR reviewer fraud"
+  },
+  {
+   "label": "Predatory publishing",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "predatory journal list OR hijacked journal warning OR questionable conference"
+  },
+  {
+   "label": "Assessment reform",
+   "lang": "en",
+   "standing": "rights",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "DORA signatory OR research assessment reform OR responsible metrics coalition"
+  },
+  {
+   "label": "Political interference in science",
+   "lang": "en",
+   "standing": "rights",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "scientists gagged OR research findings suppressed OR science advice ignored"
+  },
+  {
+   "label": "AI in publishing",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "journal AI policy OR undisclosed AI text detected papers"
+  },
+  {
+   "label": "Publisher economics",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "article processing charges rise OR big deal cancelled OR publisher profit margin"
+  },
+  {
+   "label": "Sleuths and whistleblowers",
+   "lang": "en",
+   "standing": "rights",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "PubPeer comments OR research whistleblower retaliation OR legal threat critic"
+  }
+ ]
 }

@@ -46,13 +46,27 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
+# The shared gazetteer. Placement used to be each wire's own short country
+# table, which put most of every wire in a counter marked "unplaced"; this is
+# the fleet's common one, and it is optional at import so a harvest still runs
+# if the data file has not been fetched yet.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import galaxy_places
+    _GAZETTEER = True
+except Exception as _exc:                       # noqa: BLE001
+    print("  ! gazetteer unavailable (%s); falling back to the local table"
+          % _exc, file=sys.stderr)
+    galaxy_places = None
+    _GAZETTEER = False
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 SOURCES_PATH = os.path.join(HERE, "sources_science.json")
 OUT_PATH = os.path.join(HERE, "wire_science.json")
 
 RETAIN_DAYS = 45
 MAX_ITEMS = 1200
-WORKERS = 10         # a few hundred wires now
+WORKERS = 14         # ~330 wires now: 26 languages, each asked in its own
 NOTABLE_SCORE = 3       # at or above this a story is marked as consequential
 
 # --------------------------------------------------------------------------
@@ -76,9 +90,24 @@ def build_gnews_url(loc):
     return ("https://news.google.com/rss/search?q=" + urllib.parse.quote(q) +
             "&hl=" + loc["hl"] + "&gl=" + loc["gl"] + "&ceid=" + loc["ceid"])
 
+READ_BUDGET_MIN = 40          # minutes spent reading wires
+
+# The wall-clock budget for reading wires. Past it the remaining sources are
+# recorded unreachable and the harvest finishes on what it has, because the
+# wire is only written at the end of run() and a job killed by the workflow
+# timeout commits nothing at all — which is how a feed gets stuck stale.
+DEADLINE = None
+
+
+def out_of_time():
+    return DEADLINE is not None and time.monotonic() > DEADLINE
+
+
 def fetch(url, tries=3):
     last = None
     for attempt in range(tries):
+        if out_of_time():
+            return None
         try:
             req = urllib.request.Request(url, headers={
                 "User-Agent": USER_AGENT,
@@ -91,6 +120,16 @@ def fetch(url, tries=3):
                 if resp.headers.get("Content-Encoding") == "gzip":
                     raw = gzip.GzipFile(fileobj=io.BytesIO(raw)).read()
                 return raw
+        except urllib.error.HTTPError as exc:
+            last = exc
+            # Being rate-limited or refused is an answer, not a hiccup. Trying
+            # the same query twice more against the same limiter spends eighty
+            # seconds of a worker slot to be told the same thing, and deepens
+            # the throttle for every other query in the run.
+            if exc.code in (403, 429, 451):
+                time.sleep(1.5)
+                break
+            time.sleep(1.5 * (attempt + 1))
         except Exception as exc:                       # noqa: BLE001 — report, don't crash the run
             last = exc
             time.sleep(1.5 * (attempt + 1))
@@ -804,6 +843,192 @@ DECIDED_C = _compile_all(DECIDED)
 INSTITUTIONAL_C = _compile_all(INSTITUTIONAL)
 MEASURED_C = _compile_all(MEASURED)
 PENDING_C = _compile_all(PENDING)
+# ------------------------------------------------------------------
+# The subjects, in the languages the queries now ask in. Research
+# fraud is reported everywhere and the wire was asking about it only
+# in English: 60 stories in one language, against a section whose own
+# example is a Guangzhou paper mill running 100 staff and 300
+# freelancers across six countries.
+# ------------------------------------------------------------------
+LOCAL_TERMS = {
+    "ai": [
+        ("ai 생성 논문", None), ("ai生成論文", None),
+        ("ai生成论文", None), ("articles générés par ia", None),
+        ("articoli generati dall'ia", None), ("artigos gerados por ia", None),
+        ("artículos generados por ia", None), ("door ai gegenereerde artikelen", None),
+        ("ki-generierte", None),
+    ],
+    "conflicts": [
+        ("açıklanmayan çıkar çatışması", None), ("conflicto de interés no declarado", None),
+        ("conflit d'intérêts non déclaré", None), ("conflito de interesses não declarado", None),
+        ("conflitto di interessi non dichiarato", None), ("konflik kepentingan tidak diungkapkan", None),
+        ("nicht offengelegter interessenkonflikt", None), ("niet-gemelde belangenverstrengeling", None),
+        ("nieujawniony konflikt interesów", None), ("odeklarerad intressekonflikt", None),
+        ("μη δηλωμένη σύγκρουση", None), ("нераскрытый конфликт интересов", None),
+        ("تضارب مصالح غير معلن", None), ("利益相反 未開示", None),
+        ("未披露利益冲突", None), ("이해충돌 미공개", None),
+    ],
+    "fabrication": [
+        ("dados falsificados", None), ("dati falsificati", None),
+        ("datos falsificados", None), ("données falsifiées", None),
+        ("förfalskade forskningsdata", None), ("gefälschte daten", None),
+        ("kughushi data za utafiti", None), ("manipulación de datos", None),
+        ("ngụy tạo dữ liệu", None), ("pemalsuan data", None),
+        ("sfałszowane dane", None), ("veri sahteciliği", None),
+        ("vervalste data", None), ("παραποίηση δεδομένων", None),
+        ("фальсификация данных", None), ("фальсифікація даних", None),
+        ("تزوير بيانات البحث", None), ("جعل داده‌های پژوهشی", None),
+        ("शोध डेटा में हेराफेरी", None), ("গবেষণার তথ্য জালিয়াতি", None),
+        ("ปลอมแปลงข้อมูลวิจัย", None), ("ねつ造", None),
+        ("研究データ捏造", None), ("科研数据造假", None),
+        ("论文造假", None), ("논문 조작", None),
+        ("연구 데이터 조작", None),
+    ],
+    "images": [
+        ("beeldmanipulatie", None), ("bildmanipulation", None),
+        ("görsel manipülasyon", None), ("manipolazione di immagini", None),
+        ("manipulación de imágenes", None), ("manipulacja obrazami", None),
+        ("manipulation d'images", None), ("manipulação de imagens", None),
+        ("манипуляция изображениями", None), ("图片不当处理", None),
+        ("画像の不正加工", None), ("이미지 조작 논문", None),
+    ],
+    "incentives": [
+        ("cárteles de citas", None), ("pubblica o muori", None),
+        ("publicar o perecer", None), ("publicar ou perecer", None),
+        ("publier ou périr", None), ("publikationsdruck", None),
+        ("唯论文", None), ("引用卡特尔", None),
+        ("論文数至上主義", None),
+    ],
+    "papermills": [
+        ("artikelfabrik", None), ("fabbrica di articoli", None),
+        ("fabryka artykułów", None), ("fábrica de artigos", None),
+        ("fábrica de artículos", None), ("makale fabrikası", None),
+        ("nhà máy bài báo", None), ("pabrik artikel", None),
+        ("paper mill", None), ("papierfabrik", None),
+        ("usine à articles", None), ("εργοστάσια άρθρων", None),
+        ("фабрика статей", None), ("مصانع الأبحاث", None),
+        ("کارخانه مقاله", None), ("पेपर मिल", None),
+        ("โรงงานผลิตบทความ", None), ("ペーパーミル", None),
+        ("代写代发", None), ("論文工場", None),
+        ("论文工厂", None), ("논문 공장", None),
+    ],
+    "peerreview": [
+        ("fraude en revisión por pares", None), ("fraude na revisão por pares", None),
+        ("fraude à l'évaluation par les pairs", None), ("frode nella revisione", None),
+        ("granskningsfusk", None), ("hakem değerlendirmesi sahteciliği", None),
+        ("kecurangan telaah sejawat", None), ("oszustwo w recenzji", None),
+        ("peer-review-betrug", None), ("peerreviewfraude", None),
+        ("мошенничество в рецензировании", None), ("تزوير مراجعة الأقران", None),
+        ("同行评审造假", None), ("査読不正", None),
+        ("심사 부정", None),
+    ],
+    "retraction": [
+        ("articles rétractés", None), ("articoli ritirati", None),
+        ("artigos retratados", None), ("artikel ditarik", None),
+        ("artículos retractados", None), ("bài báo bị rút", None),
+        ("geri çekilen makaleler", None), ("indragna artiklar", None),
+        ("ingetrokken artikelen", None), ("wycofane artykuły", None),
+        ("zurückgezogene studien", None), ("ανακλήσεις άρθρων", None),
+        ("відкликані статті", None), ("отозванные статьи", None),
+        ("بازپس‌گیری مقالات", None), ("سحب أبحاث علمية", None),
+        ("शोध पत्र वापस", None), ("গবেষণাপত্র প্রত্যাহার", None),
+        ("บทความถูกถอน", None), ("論文撤回", None),
+        ("论文撤稿", None), ("논문 철회", None),
+    ],
+}
+
+for _tid, _label, _terms in TOPICS:
+    _terms.extend(LOCAL_TERMS.get(_tid, []))
+
+# ------------------------------------------------------------------
+# Subjects this wire had a name for and never asked about.
+#
+# The terms below were already here and were well written; what was
+# missing was any query aimed at them, so they held zero stories
+# however much the world published. These are the phrases from the
+# queries now added, so what is fetched can be filed.
+# ------------------------------------------------------------------
+FILL_TERMS = {
+    "citations": [
+        ("cartel de citations", None), ("cartel de citações", None),
+        ("cartello di citazioni", None), ("citación coercitiva", None),
+        ("citation coercitive", None), ("citazione coercitiva", None),
+        ("citação coerciva", None), ("cártel de citas", None),
+        ("erzwungene zitationen", None), ("manipolazione dell'impact factor", None),
+        ("manipulación del factor", None), ("manipulation des impact-faktors", None),
+        ("manipulation du facteur", None), ("manipulação do fator", None),
+        ("zitationskartell", None), ("манипуляция импакт-фактором", None),
+        ("принудительное цитирование", None), ("цитатный картель", None),
+        ("インパクトファクター 操作", None), ("引用の強要", None),
+        ("引用カルテル", None), ("引用卡特尔", None),
+        ("强制引用", None), ("影响因子 操纵 期刊除名", None),
+        ("영향력 지수 조작", None), ("인용 강요", None),
+        ("인용 카르텔", None),
+    ],
+    "contamination": [
+        ("article rétracté toujours", None), ("artigo retratado continua", None),
+        ("artículo retractado sigue", None), ("contaminación de la", None),
+        ("contamination de la", None), ("contaminação da literatura", None),
+        ("kontamination der fachliteratur", None), ("zurückgezogene studie weiterhin", None),
+        ("学术污染", None), ("撤回論文 引用され続ける", None),
+        ("撤稿论文 仍被引用", None), ("研究不正 波及", None),
+        ("부정 연구 파급", None), ("철회 논문 계속", None),
+    ],
+    "funding": [
+        ("condiciones políticas a", None), ("conditions politiques au", None),
+        ("condizioni politiche ai", None), ("condições políticas ao", None),
+        ("estudio financiado por", None), ("estudo financiado pela", None),
+        ("industriefinanzierte studie verzerrung", None), ("politische auflagen forschungsförderung", None),
+        ("studio finanziato dall'industria", None), ("étude financée par", None),
+        ("исследование, профинансированное отраслью,", None), ("политические условия финансирования", None),
+        ("企业资助 研究 偏倚", None), ("業界資金 研究 偏り", None),
+        ("研究資金 政治的条件", None), ("科研经费 政治 条件", None),
+        ("업계 자금 연구", None), ("연구비 정치적 조건", None),
+    ],
+    "sleuths": [
+        ("comentarios en pubpeer", None), ("comentários no pubpeer", None),
+        ("commentaires pubpeer enquête", None), ("detectives de la", None),
+        ("detetives da integridade", None), ("limiers de l'intégrité", None),
+        ("pubpeer hinweise untersuchung", None), ("pubpeer 质疑 调查", None),
+        ("wissenschaftsdetektive integrität", None), ("パブピア 指摘", None),
+        ("学术打假", None), ("研究不正 追及", None),
+        ("연구 부정 추적자", None), ("펍피어 지적", None),
+    ],
+    "stats": [
+        ("erreurs statistiques dans", None), ("errores estadísticos en", None),
+        ("errori statistici negli", None), ("erros estatísticos em", None),
+        ("fatiamento de publicações", None), ("fragmentación de publicaciones", None),
+        ("p 해킹", None), ("p-hacking", None),
+        ("pubblicazioni a salame", None), ("pハッキング", None),
+        ("p值操纵", None), ("salami-taktik publikationen", None),
+        ("saucissonnage des publications", None), ("statistische fehler in", None),
+        ("дробление публикаций", None), ("статистические ошибки в", None),
+        ("サラミ出版", None), ("拆分发表", None),
+        ("統計的誤り 論文", None), ("论文 统计错误", None),
+        ("살라미 논문", None), ("통계 오류 논문", None),
+    ],
+}
+
+for _tid, _label, _terms in TOPICS:
+    _terms.extend(FILL_TERMS.get(_tid, []))
+
+
+# --------------------------------------------------------------------------
+# The same subjects in the languages this wire's own queries ask in, derived
+# from those queries and filed under the subject each query's label names. The
+# gate above was written in English; the queries were translated and it was
+# not, so three quarters of what the wire fetched could not be recognised once
+# it arrived. Generated — edit topics_multilingual.json, or delete the file to
+# turn this off.
+# --------------------------------------------------------------------------
+_EXTRA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                           "topics_multilingual.json")
+if os.path.exists(_EXTRA_PATH):
+    with open(_EXTRA_PATH, encoding="utf-8") as _fh:
+        _EXTRA = json.load(_fh)
+    TOPICS = [(tid, label, terms + [(t, g) for t, g in _EXTRA.get(tid, [])])
+              for tid, label, terms in TOPICS]
+
 TOPICS_C = [(tid, label, [(_compile(t), _compile_all(g) if g else None) for t, g in terms])
             for tid, label, terms in TOPICS]
 GEO3_C = [(rid, rlabel, [(sid, slabel, [(pid, plabel, _compile_all(terms))
@@ -1556,19 +1781,91 @@ def scene_first(text, places):
         (scene if _is_scene(text, _first_pos(text, terms.get(pid, []))) else rest).append(pid)
     return scene + rest
 
-def point_for(text, places, subs, regions):
-    """The most specific point a story resolved to: a named sub-national place
-    if there is one, otherwise the country, otherwise the subregion or region.
-    Returns (label_or_None, point_or_None)."""
+
+# --------------------------------------------------------------------------
+# The gazetteer answers with a country; this wire's taxonomy is keyed on ids
+# whose leading token is that country's ISO-2. Filing a placed story under its
+# region is therefore a lookup, not a guess. Where a country is split across
+# several places, only region and subregion are filled: which of the places a
+# story belongs to is a question the country code cannot answer.
+# --------------------------------------------------------------------------
+ISO_REGION = {}
+for _rid, _rlabel, _subs in GEO3:
+    for _sid, _slabel, _places in _subs:
+        for _pid, _plabel, _terms in _places:
+            _iso = _pid.split("-")[0].lower()
+            if len(_iso) == 2:
+                ISO_REGION.setdefault(_iso, (_rid, _sid))
+
+
+def file_by_country(row, cc):
+    """Put a gazetteer-placed story in its region, if the wire has one."""
+    if not cc:
+        return
+    hit = ISO_REGION.get(str(cc).lower())
+    if not hit:
+        return
+    rid, sid = hit
+    if not row.get("w") or row["w"] == ["unlocated"]:
+        row["w"] = [rid]
+    if not row.get("sr") or row["sr"] == ["unlocated"]:
+        row["sr"] = [sid]
+
+
+
+def country_for(raw, locale=None):
+    """The ISO-2 the placement resolved to, or None."""
+    if not _GAZETTEER:
+        return None
+    try:
+        return galaxy_places.resolve_full(raw, locale)[4]
+    except Exception:
+        return None
+
+
+def point_for(text, places, subs, regions, locale=None, raw=None):
+    """The most specific point a story resolved to.
+
+    The order is deliberate. This wire's own curated table goes first: it holds
+    the places this subject actually turns up and the country list it was
+    written against, and it beats a general gazetteer on its own ground. The
+    shared gazetteer follows but only overrides at the settlement level, so a
+    headline naming Kharkiv pins on Kharkiv rather than the middle of Ukraine,
+    while a country reading from this wire's own table still wins over a
+    country reading from the gazetteer. Then the bodies that stand for a
+    jurisdiction without naming it — EFSA is a European story, ANVISA a
+    Brazilian one. Last, and weakest, the country the source itself reports
+    from.
+
+    Returns (label_or_None, point_or_None, approx). approx is True only for
+    that last case, where nothing in the story placed it and the point is the
+    reporting locale rather than the scene. The page draws those hollow.
+    """
     label, point = precise_for(text)
     if point:
-        return label, point
+        return label, point, False
+
+    glabel, gpoint, grank = None, None, -1
+    if _GAZETTEER:
+        glabel, gpoint, grank, _approx = galaxy_places.resolve_ranked(raw or text)
+        if grank == 3:
+            return glabel, gpoint, False
+
     places = scene_first(text, places)
     for level in (places, subs, regions):
         for pid in level:
             if pid in COORDS:
-                return None, COORDS[pid]
-    return None, None
+                return None, COORDS[pid], False
+
+    if gpoint:
+        return glabel, gpoint, False
+
+    if _GAZETTEER and locale:
+        llabel, lpoint, _lrank, lapprox = galaxy_places.resolve_ranked("", locale)
+        if lpoint:
+            return llabel, lpoint, lapprox
+
+    return None, None, False
 
 
 def load_sources():
@@ -1582,13 +1879,16 @@ def load_sources():
         for loc in cfg.get(block, []):
             srcs.append({"name": prefix + loc["label"], "lang": loc["lang"],
                          "standing": loc["standing"], "region": loc["standing"],
-                         "kind": "news", "url": build_gnews_url(loc),
+                         "kind": "news", "url": build_gnews_url(loc), "gl": loc.get("gl"),
                          "query": loc.get("query", "")})
     return srcs, cfg
 
 
 def run(dry_run=False, fixtures=None):
+    global DEADLINE
     sources, cfg = load_sources()
+    if not fixtures:
+        DEADLINE = time.monotonic() + READ_BUDGET_MIN * 60
     print("Reading %d wires…" % len(sources))
 
     def read(src):
@@ -1648,7 +1948,12 @@ def run(dry_run=False, fixtures=None):
                 row["w"] = regions
                 row["sr"] = subs
                 row["pl"] = places
-                row["pn"], row["ll"] = point_for(text, places, subs, regions)
+                row["gl"] = src.get("gl")
+                _raw = (row["t"] or "") + " " + (row.get("s") or "")
+                row["pn"], row["ll"], row["pa"] = point_for(
+                    text, places, subs, regions, src.get("gl"), _raw)
+                if row["ll"]:
+                    file_by_country(row, country_for(_raw, src.get("gl")))
                 row["p"] = total
                 row["y"] = reasons
                 row["st"] = src["standing"]
@@ -1661,8 +1966,23 @@ def run(dry_run=False, fixtures=None):
 
     fresh_urls = {canon_url(i["u"]) for i in items}
     for row in previous:
-        if "x" in row:
-            absorb(row)
+        if "x" not in row:
+            continue
+        # A retained story is placed again rather than carried forward with the
+        # answer it happened to get the day it was first read. RETAIN_DAYS is
+        # 45, so without this a change to the placement layer takes a month and
+        # a half to reach the map, and a story never re-fetched keeps its first
+        # answer for good. Rows already holding a point resolved from their own
+        # text are left alone; only the unplaced and the source-country
+        # approximations are reconsidered.
+        if not row.get("ll") or row.get("pa"):
+            _raw = ((row.get("t") or "") + " " + (row.get("s") or ""))
+            row["pn"], row["ll"], row["pa"] = point_for(
+                _raw.lower(), row.get("pl") or [], row.get("sr") or [],
+                row.get("w") or [], row.get("gl"), _raw)
+            if row["ll"]:
+                file_by_country(row, country_for(_raw, row.get("gl")))
+        absorb(row)
 
     cutoff = int(time.time() * 1000) - RETAIN_DAYS * 86400000
     items = [i for i in items if (i.get("d") or cutoff + 1) >= cutoff]
